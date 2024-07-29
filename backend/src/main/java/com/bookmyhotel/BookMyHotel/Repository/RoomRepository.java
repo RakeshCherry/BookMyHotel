@@ -1,4 +1,7 @@
 package com.bookmyhotel.BookMyHotel.Repository;
 
-public interface RoomRepository {
+import com.bookmyhotel.BookMyHotel.Model.Room;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RoomRepository extends JpaRepository<Room, Long> {
 }
