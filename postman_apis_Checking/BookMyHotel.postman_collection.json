@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "b78041bb-0772-4910-8ac1-389e5b0c6459",
+		"name": "BookMyHotel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30669124"
+	},
+	"item": [
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "addNewRoom",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/G:/Full Stack Projects/BookMyHotel/assets/rooms/jilbert-ebrahimi.jpg"
+								},
+								{
+									"key": "roomType",
+									"value": "Single bed room",
+									"type": "text"
+								},
+								{
+									"key": "roomPrice",
+									"value": "2000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9192/rooms/add/new-room",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9192",
+							"path": [
+								"rooms",
+								"add",
+								"new-room"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
