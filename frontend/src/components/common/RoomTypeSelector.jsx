@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { getRoomTypes } from '../utils/ApiFunctions';
+
 
 const RoomTypeSelector = ({handleRoomInputChange, newRoom}) => {
     const[roomTypes, setRoomTypes] = useState([""])
@@ -27,32 +29,34 @@ const RoomTypeSelector = ({handleRoomInputChange, newRoom}) => {
     <>
     {roomTypes.length > 0 && (
         <div>
-            <select 
-            name="roomType" 
-            id="roomType"
-            value={newRoom.roomType}
-            onChange={(e) => {
-                if(e.target.value === "Add New"){
-                    setShowNewRoomTypeInput(true)
-
-                }else{
-                    handleRoomInputChange(e)
-                }
-            }}>
-                <option value={""}>Select a room Type</option>
-                <option value={"Add New"}>Add New</option>
-                {roomTypes.map((type, index) => (
-                    <option key={index} value={type}>
-                        {type}
-                    </option>
-                ))}
-            </select>
+            <select
+						required
+						className="form-select"
+						name="roomType"
+						onChange={(e) => {
+							if (e.target.value === "Add New") {
+								setShowNewRoomTypeInput(true)
+							} else {
+								handleRoomInputChange(e)
+							}
+						}}
+						value={newRoom.roomType}>
+						<option value="">Select a room type</option>
+						<option value={"Add New"}>Add New</option>
+						{roomTypes.map((type, index) => (
+							<option key={index} value={type}>
+								{type}
+							</option>
+						))}
+					</select>
             {showNewRoowTypeInput && (
+                <div className='mt-2'>
                 <div className='input-group'>
                     <input 
                     className='form-control'
                     type='text'
                     placeholder='Enter a new room Type'
+                    value={newRoomType}
                     onChange={handleNewRoomTypeInputChange}
                     />
                     <button 
@@ -62,6 +66,7 @@ const RoomTypeSelector = ({handleRoomInputChange, newRoom}) => {
                     >
                         Add
                     </button>
+                </div>
                 </div>
             )}
         </div>

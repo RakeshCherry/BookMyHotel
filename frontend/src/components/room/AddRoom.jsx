@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import {addRoom} from "../utils/ApiFunctions"
-import RoomTypeSelector from '../common/RoomTypeSelector'
+import React, { useState } from "react"
+import { addRoom } from "../utils/ApiFunctions"
+import RoomTypeSelector from "../common/RoomTypeSelector"
+// import { Link } from "react-router-dom"
 
 const AddRoom = () => {
     const[newRoom, setNewRoom] = useState({
@@ -27,7 +28,7 @@ const AddRoom = () => {
     }
 
 
-    const handleImageChage = () => {
+    const handleImageChange = (e) => {
         const selectedImage = e.target.files[0]
         setNewRoom({...newRoom, photo: selectedImage})
         setImagePreview(URL.createObjectURL(selectedImage))
@@ -45,9 +46,13 @@ const AddRoom = () => {
             }else{
                 setErrorMessage("Error adding new room")
             }
-        }catch(e){
+        }catch(error){
             setErrorMessage(error.message)
         }
+        setTimeout(() =>{
+            setSuccessMessage("")
+            setErrorMessage("")
+        }, 3000)
     }
 
 
@@ -58,6 +63,12 @@ const AddRoom = () => {
         <div className='row justify-cotent-center'>
             <div className='col-md-8 col-lg-6'>
                 <h2 className='mt-5 mb-2'>Add a New Room</h2>
+                {successMessage && (
+					<div className="alert alert-success fade show"> {successMessage}</div>
+				)}
+
+				{errorMessage && <div className="alert alert-danger fade show"> {errorMessage}</div>}
+
 
                 <form onSubmit={handleSubmit}>
                     <div className='mb-3 '>
@@ -66,7 +77,7 @@ const AddRoom = () => {
                         </label>
                         <div>
                             <RoomTypeSelector
-                            handleRoomInputChange={handleImageChage}
+                            handleRoomInputChange={handleRoomInputChange}
                             newRoom={newRoom}
                             />
                         </div>
@@ -78,9 +89,10 @@ const AddRoom = () => {
                        <input
                        className='form-control'
                        required
+                       type="number"
                        id='roomPrice'
                        name='roomPrice'
-                       value={newRoom.roomPice}
+                       value={newRoom.roomPrice}
                        onChange={handleRoomInputChange}
                         />
                     </div>
@@ -89,18 +101,25 @@ const AddRoom = () => {
                             Room Photo
                         </label>
                         <input 
+                        required
                         id='photo'
                         name='photo'
                         type="file"
                         className='form-control'
-                         onChange={handleImageChage}
+                         onChange={handleImageChange}
                         />
                         {imagePreview && (
-                            <img src={imagePreview} alt="roomImage" style={{maxWidth: "400px", maxHeight: "400px"}} className='md-3'/>
+                            <img src={imagePreview} 
+                                alt="roomImage" 
+                                style={{maxWidth: "400px", maxHeight: "400px"}} 
+                                className='md-3'/>
                         )}
                     </div>
-                    <div className='d-grid d-md-flex mt-2'>
-                        <button className='btn btn-outline-primary ml-5'>
+                    <div className='d-grid gap-2 d-md-flex mt-2'>
+                        {/* <Link to={"/existing-rooms"} className="btn btn-outline-info">
+                            Existing Room
+                        </Link> */}
+                        <button type="submit" className='btn btn-outline-primary ml-5'>
                             Save Room
                         </button>
                     </div>
