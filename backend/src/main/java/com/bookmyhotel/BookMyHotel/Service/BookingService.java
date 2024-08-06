@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class BookingService {
 
-    public List<BookedRoom> getAllBookingsByRoomId(Long roomId){
+    public List<BookedRoom> getAllBookingByRoomId(long roomId) {
         return null;
     }
 }
