@@ -49,21 +49,21 @@ const ExistingRooms = () => {
 
   const handleDelete = async (roomId) => {
     try {
-      const result = await deleteRoom(roomId);
+      const result = await deleteRoom(roomId)
       if (result === "") {
         setSuccessMessage(`Room No ${roomId} was deleted`);
-        fetchRooms();
+        fetchRooms()
       } else {
-        console.error(`Error deleting room : ${result.message}`);
+        console.error(`Error deleting room : ${result.message}`)
       }
     } catch (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(error.message)
     }
     setTimeout(() => {
-      setSuccessMessage("");
-      setErrorMessage("");
-    }, 3000);
-  };
+      setSuccessMessage("")
+      setErrorMessage("")
+    }, 3000)
+  }
 
   const calculateTotalPages = (filteredRooms, roomsPerPage, rooms) => {
     const totalRooms =
@@ -115,7 +115,7 @@ const ExistingRooms = () => {
 
                     <button
                       className="btn btn-danger btn-sm"
-                      onClick={() => handleDelete(room.Id)}
+                      onClick={() => handleDelete(room.id)}
                     >
                       <FaTrashAlt />
                     </button>
