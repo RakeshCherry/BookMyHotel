@@ -1,5 +1,6 @@
 package com.bookmyhotel.BookMyHotel.Service;
 
+import com.bookmyhotel.BookMyHotel.Exception.InternalServerException;
 import com.bookmyhotel.BookMyHotel.Exception.ResourceNotFoundException;
 import com.bookmyhotel.BookMyHotel.Model.Room;
 import com.bookmyhotel.BookMyHotel.Repository.RoomRepository;
@@ -64,5 +65,26 @@ public class RoomService implements IRoomService{
         if(theRoom.isPresent()){
             roomRepository.deleteById(roomId);
         }
+    }
+
+    @Override
+    public Room updateRoom(Long roomId, String roomType, BigDecimal roomPrice, byte[] photoBytes) {
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow(() -> new ResourceNotFoundException("Room not Found"));
+        if(roomType != null) room.setRoomType(roomType);
+        if(roomPrice != null) room.setRoomPrice(roomPrice);
+        if(photoBytes != null && photoBytes.length > 0){
+            try{
+                room.setPhoto(new SerialBlob(photoBytes));
+            }catch (SQLException ex){
+                throw new InternalServerException("Error updating room");
+            }
+        }
+        return roomRepository.save(room);
+    }
+
+    @Override
+    public Optional<Room> getRoomById(Long roomId) {
+        return Optional.of(roomRepository.findById(roomId).get());
     }
 }
