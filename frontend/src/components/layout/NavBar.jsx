@@ -1,5 +1,5 @@
 import React from 'react' 
-import { NavLink } from 'react-bootstrap' 
+import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 const NavBar = () => {
@@ -26,11 +26,11 @@ const NavBar = () => {
                             <NavLink className='nav-link' aria-current='page' to={"/browse-all-rooms"}>
                                 Browse all rooms
                             </NavLink>
-                            <li className='nav-item'>
+                        </li>
+                        <li className='nav-item'>
                             <NavLink className='nav-link' aria-current='page' to={"/admin"}>
                                 Admin
                             </NavLink>
-                        </li>
                         </li>
                     </ul>
                     <ul className='d-flex navbar-nav'>
@@ -41,21 +41,25 @@ const NavBar = () => {
                         </li>
                         <li className='nav-item dropdown'>
                             <a 
-                            href=""></a>
+                                className="nav-link dropdown-toggle"
+                                role="button"
+                                data-bs-toggle="dropdown"
+								aria-expanded="false"
+                                href="#">Account</a>
 
-                            <ul>
+                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
-                                    <Link to={"/login"} className="dropdown-item">
+                                    <Link className="dropdown-item" to={"/login"}>
                                     LogIn
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={"/profile"} className="dropdown-item">
+                                    <Link className="dropdown-item" to={"/profile"}>
                                     Profile
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={"/logout"} className="dropdown-item">
+                                    <Link className="dropdown-item"  to={"/logout"}>
                                     LogOut
                                     </Link>
                                 </li>
