@@ -2,6 +2,7 @@ package com.bookmyhotel.BookMyHotel.Service;
 
 
 import com.bookmyhotel.BookMyHotel.Exception.InvalidBookingRequestException;
+import com.bookmyhotel.BookMyHotel.Exception.ResourceNotFoundException;
 import com.bookmyhotel.BookMyHotel.Model.BookedRoom;
 import com.bookmyhotel.BookMyHotel.Model.Room;
 import com.bookmyhotel.BookMyHotel.Repository.BookingRepository;
@@ -9,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +22,11 @@ public class BookingService implements IBookingService{
     @Override
     public List<BookedRoom> getAllBookings() {
         return bookingRepository.findAll();
+    }
+
+    @Override
+    public List<BookedRoom> getBookingsByUserEmail(String email) {
+        return bookingRepository.findByGuestEmail(email);
     }
 
     @Override
@@ -53,8 +58,9 @@ public class BookingService implements IBookingService{
 
 
     @Override
-    public Optional<BookedRoom> findByBookingConfirmationCode(String confirmationCode) {
-        return bookingRepository.findByBookingConfirmationCode(confirmationCode);
+    public BookedRoom findByBookingConfirmationCode(String confirmationCode) {
+        return bookingRepository.findByBookingConfirmationCode(confirmationCode)
+                .orElseThrow(() -> new ResourceNotFoundException("No booking found with booking code :"+confirmationCode));
     }
 
 
