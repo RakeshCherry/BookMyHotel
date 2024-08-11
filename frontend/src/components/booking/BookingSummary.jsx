@@ -27,6 +27,8 @@ const BookingSummary = (booking, payment, isValidated, onConfirm) => {
   }, [isBookingConfirmed, navigate]);
 
   return (
+    <div className="row">
+			<div className="col-md-6"></div>
     <div className="card card-body mt-5">
       <h4>Reservation Summary</h4>
       <p>
@@ -36,11 +38,11 @@ const BookingSummary = (booking, payment, isValidated, onConfirm) => {
         Email: <strong>{booking.guestEmail}</strong>
       </p>
       <p>
-        Check-In Date:{" "}
+        Check-In Date:
         <strong>{moment(booking.checkInDate).format("MMM Do YYYY")}</strong>
       </p>
       <p>
-        Check-Out Date:{" "}
+        Check-Out Date:
         <strong>{moment(booking.checkOutDate).format("MMM Do YYYY")}</strong>
       </p>
       <p>
@@ -49,7 +51,7 @@ const BookingSummary = (booking, payment, isValidated, onConfirm) => {
       <div>
         <h5>Number Of Guests</h5>
         <strong>
-          Adults{booking.numberOfAdults > 1 ? "s" : ""} :{" "}
+          Adults{booking.numberOfAdults > 1 ? "s" : ""} :
           {booking.numberOfAdults}
         </strong>
         <strong>Children : {booking.numberOfChildren}</strong>
@@ -77,7 +79,7 @@ const BookingSummary = (booking, payment, isValidated, onConfirm) => {
           ) : isBookingConfirmed ? (
             <div className="d-flex justify-content-center align-items-center">
               <div className="spinner-border text-primary" role="status">
-                <span className="sr-only">Loading</span>
+                <span className="sr-only">Loading...</span>
               </div>
             </div>
           ) : null}
@@ -87,6 +89,7 @@ const BookingSummary = (booking, payment, isValidated, onConfirm) => {
           Check-Out date must be after Check-In date
         </P>
       )}
+    </div>
     </div>
   );
 };
