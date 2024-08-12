@@ -50,7 +50,7 @@ const renderRooms = () => {
     <Container>
          <Row>
             <Col md={6} className="mb-3 mb--md-0">
-                <RoomFilter data={data} setFilteredData={{setFilteredData}}/>
+                <RoomFilter data={data} setFilteredData={setFilteredData}/>
             </Col>
             <Col md={6} className="d-flex align-items-center justify-content-end">
                 <RoomPaginator 

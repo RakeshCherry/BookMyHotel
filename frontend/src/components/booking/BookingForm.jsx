@@ -231,9 +231,9 @@ const currentUser = localStorage.getItem("userId")
 								</fieldset>
 
 								<div className="fom-group mt-2 mb-2">
-									<button type="submit" className="btn btn-hotel">
+									<Button type="submit" className="btn btn-hotel">
 										Continue
-									</button>
+									</Button>
 								</div>
 							</Form>
 						</div>
