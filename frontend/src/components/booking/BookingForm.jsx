@@ -7,7 +7,7 @@ import { bookRoom, getRoomById } from "../utils/ApiFunctions"
 import { useNavigate, useParams } from "react-router-dom"
 
 const BookingForm = () => {
-	const [validated, setValidated] = useState(false)
+	const [isValidated, setIsValidated] = useState(false)
 	const [isSubmitted, setIsSubmitted] = useState(false)
 	const [errorMessage, setErrorMessage] = useState("")
 	const [roomPrice, setRoomPrice] = useState(0)
@@ -16,11 +16,17 @@ const currentUser = localStorage.getItem("userId")
 
 	const [booking, setBooking] = useState({
 		guestFullName: "",
-		guestEmail: currentUser,
+		guestEmail: currentUser || "",
 		checkInDate: "",
 		checkOutDate: "",
 		numOfAdults: "",
 		numOfChildren: ""
+	})
+
+	const [roomInfo, setRoomInfo] = useState({
+		photo: "",
+		roomType: "",
+		roomPrice: ""
 	})
 
 	const { roomId } = useParams()
@@ -50,8 +56,8 @@ const currentUser = localStorage.getItem("userId")
 		const checkInDate = moment(booking.checkInDate)
 		const checkOutDate = moment(booking.checkOutDate)
 		const diffInDays = checkOutDate.diff(checkInDate, "days")
-		const paymentPerDay = roomPrice ? roomPrice : 0
-		return diffInDays * paymentPerDay
+		const price = roomPrice ? roomPrice : 0
+		return diffInDays * price
 	}
 
 	const isGuestCountValid = () => {
@@ -79,7 +85,7 @@ const currentUser = localStorage.getItem("userId")
 		} else {
 			setIsSubmitted(true)
 		}
-		setValidated(true)
+		setIsValidated(true)
 	}
 
 	const handleFormSubmit = async () => {
@@ -102,7 +108,7 @@ const currentUser = localStorage.getItem("userId")
 						<div className="card card-body mt-5">
 							<h4 className="card-title">Reserve Room</h4>
 
-							<Form noValidate validated={validated} onSubmit={handleSubmit}>
+							<Form noValidate validated={isValidated} onSubmit={handleSubmit}>
 								<Form.Group>
 									<Form.Label htmlFor="guestFullName" className="hotel-color">
 										Fullname
@@ -237,9 +243,9 @@ const currentUser = localStorage.getItem("userId")
 						{isSubmitted && (
 							<BookingSummary
 								booking={booking}
-								payment={calculatePayment()}
+								payment={calculatePayment}
 								onConfirm={handleFormSubmit}
-								isFormValid={validated}
+								isFormValid={isValidated}
 							/>
 						)}
 					</div>

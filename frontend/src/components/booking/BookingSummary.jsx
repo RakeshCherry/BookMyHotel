@@ -3,18 +3,18 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const BookingSummary = (booking, payment, isValidated, onConfirm) => {
+const BookingSummary = (booking, payment, isFormValid, onConfirm) => {
   const checkInDate = moment(booking.checkInDate);
   const checkOutDate = moment(booking.checkOutDate);
   const numberOfDays = checkOutDate.diff(checkInDate, "days");
   const [isBookingConfirmed, setIsBookingConfirmed] = useState(false);
-  const [isProcessingPayment, setISProcessingPayment] = useState(false);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const navigate = useNavigate();
 
   const handleConfirmBooking = () => {
-    setISProcessingPayment(true);
+    setIsProcessingPayment(true);
     setTimeout(() => {
-      setISProcessingPayment(false);
+      setIsProcessingPayment(false);
       isBookingConfirmed(true);
       onConfirm();
     }, 3000);
@@ -32,7 +32,7 @@ const BookingSummary = (booking, payment, isValidated, onConfirm) => {
     <div className="card card-body mt-5">
       <h4>Reservation Summary</h4>
       <p>
-        Full Name: <strong>{booking.guestName}</strong>
+        Full Name: <strong>{booking.guestFullName}</strong>
       </p>
       <p>
         Email: <strong>{booking.guestEmail}</strong>
@@ -51,10 +51,10 @@ const BookingSummary = (booking, payment, isValidated, onConfirm) => {
       <div>
         <h5>Number Of Guests</h5>
         <strong>
-          Adults{booking.numberOfAdults > 1 ? "s" : ""} :
-          {booking.numberOfAdults}
+          Adults{booking.numOfAdults > 1 ? "s" : ""} :
+          {booking.numOfAdults}
         </strong>
-        <strong>Children : {booking.numberOfChildren}</strong>
+        <strong>Children : {booking.numOfChildren}</strong>
       </div>
       {payment > 0 ? (
         <>
@@ -85,9 +85,9 @@ const BookingSummary = (booking, payment, isValidated, onConfirm) => {
           ) : null}
         </>
       ) : (
-        <P className="text-danger">
+        <p className="text-danger">
           Check-Out date must be after Check-In date
-        </P>
+        </p>
       )}
     </div>
     </div>
