@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import { Carousel, Row, Col, Container, Card } from "react-bootstrap";
 
 const RoomCarousel = () => {
-  const [rooms, setRooms] = useState([{
-    id:'', 
-    roomType: '',
-    roomPrice:'',
-    photo: ''
-}]);
+  const [rooms, setRooms] = useState([
+    {
+      id: "",
+      roomType: "",
+      roomPrice: "",
+      photo: "",
+    },
+  ]);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -56,12 +58,22 @@ const RoomCarousel = () => {
                         />
                       </Link>
                       <Card.Body>
-                      <Card.Title className='hotel-color'>{room.roomType}</Card.Title>
-                            <Card.Title className='room-price'>{room.roomPrice}</Card.Title>
-                        <div className='flex-shrink-0 mt-3'>
-                            <Link to={`bookings/${room.id}`} className='btn btn-hotel btn-sm'>
-                                Book Now
-                            </Link>
+                        <Card.Title
+                          className="hotel-color"
+                          style={{ fontSize: "1rem" }}
+                        >
+                          {room.roomType}
+                        </Card.Title>
+                        <Card.Title className="room-price">
+                          {room.roomPrice}
+                        </Card.Title>
+                        <div className="flex-shrink-0 mt-3">
+                          <Link
+                            to={`bookings/${room.id}`}
+                            className="btn btn-hotel btn-sm"
+                          >
+                            Book Now
+                          </Link>
                         </div>
                       </Card.Body>
                     </Card>
