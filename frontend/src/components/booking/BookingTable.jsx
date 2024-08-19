@@ -60,7 +60,12 @@ const BookingTable = ({ bookingInfo, handleBookingCancellation }) => {
               <td>{booking.totalNumOfGuest}</td>
               <td>{booking.bookingConfirmationCode}</td>
               <td>
-                <button className="btn btn-danger btn-sm"></button>
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => handleBookingCancellation(booking.id)}
+                >
+                  Cancel
+                </button>
               </td>
             </tr>
           ))}
