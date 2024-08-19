@@ -42,7 +42,8 @@ const BookingTable = ({ bookingInfo, handleBookingCancellation }) => {
             <th>Adults</th>
             <th>Children</th>
             <th>Total Guest</th>
-            <th>COnfirmation Code</th>
+            <th>Confirmation Code</th>
+            <th colSpan={2}>Actions</th>
           </tr>
         </thead>
         <tbody className="text-center">
@@ -71,6 +72,9 @@ const BookingTable = ({ bookingInfo, handleBookingCancellation }) => {
           ))}
         </tbody>
       </table>
+      {filterBookings.length === 0 && (
+        <p>No Booking found for selected dates</p>
+      )}
     </section>
   );
 };
