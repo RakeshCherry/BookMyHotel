@@ -14,9 +14,20 @@ const Bookings = () => {
         })
         .catch((error) => {
           setError(error.message);
+          setIsLoading(false);
         });
-    });
+    }, 1000);
   }, []);
+
+  const handleBookingCancellation = async (bookingId) => {
+    try {
+      await cancelBooking(bookingId);
+      const data = await getAllBookings();
+      setBookingInfo(data);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
   return <div></div>;
 };
 
