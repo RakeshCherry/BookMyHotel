@@ -28,7 +28,11 @@ const Bookings = () => {
       setError(error.message);
     }
   };
-  return <div></div>;
+  return (
+    <section>
+      <Header title={"Existing Booking"} />
+    </section>
+  );
 };
 
 export default Bookings;
