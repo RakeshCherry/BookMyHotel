@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import BookingsTable from "./BookingTable";
 
 const Bookings = () => {
   const [bookingInfo, setBookingInfo] = useState([]);
@@ -29,8 +30,16 @@ const Bookings = () => {
     }
   };
   return (
-    <section>
+    <section className="container" style={{ backgroundColor: "whitesmoke" }}>
       <Header title={"Existing Booking"} />
+      {isLoading ? (
+        <div>Loading existing bookings</div>
+      ) : (
+        <BookingsTable
+          bookingInfo={bookingInfo}
+          handleBookingCancellation={handleBookingCancellation}
+        />
+      )}
     </section>
   );
 };
