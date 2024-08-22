@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BookingsTable from "./BookingTable";
 import Header from "../common/Header";
+import { getAllBookings } from "../utils/ApiFunctions";
 
 const Bookings = () => {
   const [bookingInfo, setBookingInfo] = useState([]);
