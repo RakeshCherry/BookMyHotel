@@ -54,7 +54,7 @@ const FindBooking = () => {
       if (error.response && error.response.status === 404) {
         setError(error.response.data.message);
       } else {
-        setError(error.messaage);
+        setError(error.message);
       }
     }
     setTimeout(() => {
@@ -64,13 +64,13 @@ const FindBooking = () => {
 
   const handleBookingCancellation = async (bookingId) => {
     try {
-      await cancelBooking(bookingInfo.bookingId);
+      await cancelBooking(bookingInfo.id);
       setIsDeleted(true);
       setBookingInfo(clearBookingInfo);
       setConfirmationCode("");
       setError("");
     } catch (error) {
-      setError(error.messaage);
+      setError(error.message);
     }
   };
   return (
