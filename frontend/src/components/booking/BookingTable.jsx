@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
 import { parseISO } from "date-fns";
+import React, { useState, useEffect } from "react";
 import DateSlider from "../common/DateSlider";
 
-const BookingTable = ({ bookingInfo, handleBookingCancellation }) => {
+const BookingsTable = ({ bookingInfo, handleBookingCancellation }) => {
   const [filteredBookings, setFilteredBookings] = useState(bookingInfo);
-  const filterBookings = (startDate, endDate) => {
+
+  const filterBooknigs = (startDate, endDate) => {
     let filtered = bookingInfo;
     if (startDate && endDate) {
       filtered = bookingInfo.filter((booking) => {
-        const bookingStartDate = parseISO(booking.checkInDate);
+        const bookingStarDate = parseISO(booking.checkInDate);
         const bookingEndDate = parseISO(booking.checkOutDate);
         return (
-          bookingStartDate >= startDate &&
+          bookingStarDate >= startDate &&
           bookingEndDate <= endDate &&
           bookingEndDate > startDate
         );
@@ -23,18 +24,21 @@ const BookingTable = ({ bookingInfo, handleBookingCancellation }) => {
   useEffect(() => {
     setFilteredBookings(bookingInfo);
   }, [bookingInfo]);
+
+  console.log(bookingInfo);
   return (
-    <section className="p-4">
+    <section>
       <DateSlider
-        onDateChange={filterBookings}
-        onFilterChange={filterBookings}
+        onDateChange={filterBooknigs}
+        onFilterChange={filterBooknigs}
       />
-      <table>
+      <table className="table table-bordered table-hover shadow">
         <thead>
           <tr>
-            <th>Sl.No</th>
+            <th>S/N</th>
             <th>Booking ID</th>
             <th>Room ID</th>
+            <th>Room Type</th>
             <th>Check-In Date</th>
             <th>Check-Out Date</th>
             <th>Guest Name</th>
@@ -50,8 +54,9 @@ const BookingTable = ({ bookingInfo, handleBookingCancellation }) => {
           {filteredBookings.map((booking, index) => (
             <tr key={booking.id}>
               <td>{index + 1}</td>
-              <td>{booking.id}</td>
+              <td>{booking.bookingId}</td>
               <td>{booking.room.id}</td>
+              <td>{booking.room.roomType}</td>
               <td>{booking.checkInDate}</td>
               <td>{booking.checkOutDate}</td>
               <td>{booking.guestName}</td>
@@ -72,11 +77,11 @@ const BookingTable = ({ bookingInfo, handleBookingCancellation }) => {
           ))}
         </tbody>
       </table>
-      {filterBookings.length === 0 && (
-        <p>No Booking found for selected dates</p>
+      {filterBooknigs.length === 0 && (
+        <p> No booking found for the selected dates</p>
       )}
     </section>
   );
 };
 
-export default BookingTable;
+export default BookingsTable;

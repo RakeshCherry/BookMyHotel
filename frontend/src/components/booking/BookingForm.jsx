@@ -107,7 +107,7 @@ const BookingForm = () => {
 
   return (
     <>
-      <div className="container mb-5">
+      <div className="container mb-6">
         <div className="row">
           <div className="col-md-6">
             <div className="card card-body mt-5">
