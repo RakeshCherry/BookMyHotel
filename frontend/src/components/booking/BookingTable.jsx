@@ -24,8 +24,6 @@ const BookingsTable = ({ bookingInfo, handleBookingCancellation }) => {
   useEffect(() => {
     setFilteredBookings(bookingInfo);
   }, [bookingInfo]);
-
-  console.log(bookingInfo);
   return (
     <section>
       <DateSlider
