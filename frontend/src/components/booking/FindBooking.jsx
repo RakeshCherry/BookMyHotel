@@ -99,7 +99,7 @@ const FindBooking = () => {
           <div className="col-md-6 mt-4 mb-5">
             <h3>Booking Information</h3>
             <p>Confirmation Code : {bookingInfo.bookingConfirmationCode}</p>
-            <p>Booking ID : {bookingInfo.id}</p>
+            <p>Booking ID : {bookingInfo.bookingId}</p>
             <p>Room No : {bookingInfo.room.id}</p>
             <p>Check-In Date : {bookingInfo.checkInDate}</p>
             <p>Check-Out Date : {bookingInfo.checkOutDate}</p>
