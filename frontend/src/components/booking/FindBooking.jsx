@@ -23,8 +23,6 @@ const FindBooking = () => {
     totalNumOfGuest: "",
   });
 
-  const [isDeleted, setIsDeleted] = useState(false);
-
   const clearBookingInfo = {
     id: "",
     room: { id: "" },
@@ -39,6 +37,8 @@ const FindBooking = () => {
     totalNumOfGuest: "",
   };
 
+  const [isDeleted, setIsDeleted] = useState(false);
+
   const handleInputChange = (e) => {
     setConfirmationCode(e.target.value);
   };
@@ -48,12 +48,13 @@ const FindBooking = () => {
     try {
       const data = await getBookingByConfirmationCode(confirmationCode);
       setBookingInfo(data);
+      setError(null);
     } catch (error) {
       setBookingInfo(clearBookingInfo);
       if (error.response && error.response.status === 404) {
         setError(error.response.data.message);
       } else {
-        setError(error.response);
+        setError(error.messaage);
       }
     }
     setTimeout(() => {
@@ -63,7 +64,7 @@ const FindBooking = () => {
 
   const handleBookingCancellation = async (bookingId) => {
     try {
-      await cancelBooking(bookingInfo.id);
+      await cancelBooking(bookingInfo.bookingId);
       setIsDeleted(true);
       setBookingInfo(clearBookingInfo);
       setConfirmationCode("");
@@ -111,7 +112,7 @@ const FindBooking = () => {
             {!isDeleted && (
               <button
                 className="btn btn-danger"
-                onClick={() => handleBookingCancellation(bookingInfo.id)}
+                onClick={() => handleBookingCancellation(bookingInfo.bookingId)}
               >
                 Cancle Booking
               </button>
