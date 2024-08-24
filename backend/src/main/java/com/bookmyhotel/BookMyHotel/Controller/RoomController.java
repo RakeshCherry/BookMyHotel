@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -100,6 +101,12 @@ public class RoomController {
             }
             return ResponseEntity.ok(Optional.of(roomResponse));
         }).orElseThrow(()-> new ResourceNotFoundException("Room not Found"));
+
+    }
+
+    public ResponseEntity<List<RoomResponse>> getAvailableRooms(@RequestParam LocalDate checkInDate,
+                                                                @RequestParam LocalDate checkOutDate,
+                                                                @PathVariable roomtype){
 
     }
 
