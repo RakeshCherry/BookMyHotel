@@ -36,12 +36,10 @@ const RoomSearch = () => {
     )
       .then((response) => {
         setAvailableRooms(response.data);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 2000);
+        setTimeout(() => setIsLoading(false), 2000);
       })
       .catch((error) => {
-        console.error("error");
+        console.error(error);
       })
       .finally(() => {
         setIsLoading(false);
@@ -50,6 +48,7 @@ const RoomSearch = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    setSearchQuery({ ...searchQuery, [name]: value });
     const checkIn = moment(searchQuery.checkInDate);
     const checkOut = moment(searchQuery.checkOutDate);
     if (checkIn.isValid() && checkOut.isValid()) {
@@ -57,12 +56,13 @@ const RoomSearch = () => {
     }
   };
 
-  const ClearSearch = () => {
+  const handleClearSearch = () => {
     setSearchQuery({
       checkInDate: "",
       checkOutDate: "",
       roomType: "",
     });
+    setAvailableRooms([]);
   };
 
   return (
@@ -96,14 +96,14 @@ const RoomSearch = () => {
             </Col>
 
             <Col xs={12} md={3}>
-              <Form.Group>
+              <Form.Group controlId="roomType">
                 <Form.Label>Room Type</Form.Label>
                 <div className="d-flex">
                   <RoomTypeSelector
-                    handleInputChange={handleInputChange}
+                    handleRoomInputChange={handleInputChange}
                     newRoom={searchQuery}
                   />
-                  <Button variant="secondary" type="submit">
+                  <Button variant="secondary" type="submit" className="ml-2">
                     Search
                   </Button>
                 </div>
@@ -112,14 +112,16 @@ const RoomSearch = () => {
           </Row>
         </Form>
         {setIsLoading ? (
-          <p>finding available rooms...</p>
+          <p className="mt-4">finding available rooms...</p>
         ) : availableRooms ? (
           <RoomSearchResult
             results={availableRooms}
-            onClearSearch={ClearSearch}
+            onClearSearch={handleClearSearch}
           />
         ) : (
-          <P>No rooms available for the selected dates and room type</P>
+          <P className="mt-4">
+            No rooms available for the selected dates and room type
+          </P>
         )}
         {errorMessage && <p className="text-danger">{errorMessage}</p>}
       </Container>

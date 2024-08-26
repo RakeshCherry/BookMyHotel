@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import BookingsTable from "./BookingTable";
+import BookingsTable from "./BookingsTable";
 import Header from "../common/Header";
 import { getAllBookings } from "../utils/ApiFunctions";
 
