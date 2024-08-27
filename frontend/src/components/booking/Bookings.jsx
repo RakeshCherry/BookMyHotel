@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import BookingsTable from "./BookingsTable";
+import React, { useState, useEffect } from "react";
+import { cancelBooking, getAllBookings } from "../utils/ApiFunctions";
 import Header from "../common/Header";
-import { getAllBookings } from "../utils/ApiFunctions";
+import BookingsTable from "./BookingsTable";
 
 const Bookings = () => {
   const [bookingInfo, setBookingInfo] = useState([]);
@@ -31,9 +31,10 @@ const Bookings = () => {
       setError(error.message);
     }
   };
+
   return (
-    <section className="container" style={{ backgroundColor: "whitesmoke" }}>
-      <Header title={"Existing Booking"} />
+    <section style={{ backgroundColor: "whitesmoke" }}>
+      <Header title={"Existing Bookings"} />
       {error && <div className="text-danger">{error}</div>}
       {isLoading ? (
         <div>Loading existing bookings</div>
