@@ -1,9 +1,9 @@
-import moment from "moment";
 import React, { useState } from "react";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
+import moment from "moment";
 import { getAvailableRooms } from "../utils/ApiFunctions";
-import { Col, Container, Form, Row, Button } from "react-bootstrap";
+import RoomSearchResults from "./RoomSearchResult";
 import RoomTypeSelector from "./RoomTypeSelector";
-import RoomSearchResult from "./RoomSearchResult";
 
 const RoomSearch = () => {
   const [searchQuery, setSearchQuery] = useState({
@@ -18,14 +18,14 @@ const RoomSearch = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    const checkIn = moment(searchQuery.checkInDate);
-    const checkOut = moment(searchQuery.checkOutDate);
-    if (!checkIn.isValid() || !checkOut.isValid()) {
-      setErrorMessage("Please, Enter valid date range");
+    const checkInMoment = moment(searchQuery.checkInDate);
+    const checkOutMoment = moment(searchQuery.checkOutDate);
+    if (!checkInMoment.isValid() || !checkOutMoment.isValid()) {
+      setErrorMessage("Please enter valid dates");
       return;
     }
-    if (!checkOut.isSameOrAfter(checkIn)) {
-      setErrorMessage("Check-in date must come before Check-out date");
+    if (!checkOutMoment.isSameOrAfter(checkInMoment)) {
+      setErrorMessage("Check-out date must be after check-in date");
       return;
     }
     setIsLoading(true);
@@ -39,7 +39,7 @@ const RoomSearch = () => {
         setTimeout(() => setIsLoading(false), 2000);
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
       })
       .finally(() => {
         setIsLoading(false);
@@ -49,13 +49,12 @@ const RoomSearch = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setSearchQuery({ ...searchQuery, [name]: value });
-    const checkIn = moment(searchQuery.checkInDate);
-    const checkOut = moment(searchQuery.checkOutDate);
-    if (checkIn.isValid() && checkOut.isValid()) {
+    const checkInDate = moment(searchQuery.checkInDate);
+    const checkOutDate = moment(searchQuery.checkOutDate);
+    if (checkInDate.isValid() && checkOutDate.isValid()) {
       setErrorMessage("");
     }
   };
-
   const handleClearSearch = () => {
     setSearchQuery({
       checkInDate: "",
@@ -67,12 +66,12 @@ const RoomSearch = () => {
 
   return (
     <>
-      <Container className="mt-5 mb-5 py-5 shadow">
+      <Container className="shadow mt-5 mb-5 py-5">
         <Form onSubmit={handleSearch}>
           <Row className="justify-content-center">
             <Col xs={12} md={3}>
               <Form.Group controlId="checkInDate">
-                <Form.Label>Check-In date</Form.Label>
+                <Form.Label>Check-in Date</Form.Label>
                 <Form.Control
                   type="date"
                   name="checkInDate"
@@ -84,7 +83,7 @@ const RoomSearch = () => {
             </Col>
             <Col xs={12} md={3}>
               <Form.Group controlId="checkOutDate">
-                <Form.Label>Check-Out date</Form.Label>
+                <Form.Label>Check-out Date</Form.Label>
                 <Form.Control
                   type="date"
                   name="checkOutDate"
@@ -94,7 +93,6 @@ const RoomSearch = () => {
                 />
               </Form.Group>
             </Col>
-
             <Col xs={12} md={3}>
               <Form.Group controlId="roomType">
                 <Form.Label>Room Type</Form.Label>
@@ -103,7 +101,7 @@ const RoomSearch = () => {
                     handleRoomInputChange={handleInputChange}
                     newRoom={searchQuery}
                   />
-                  <Button variant="secondary" type="submit" className="ml-2">
+                  <Button variant="secondary" type="submit">
                     Search
                   </Button>
                 </div>
@@ -111,17 +109,18 @@ const RoomSearch = () => {
             </Col>
           </Row>
         </Form>
-        {setIsLoading ? (
-          <p className="mt-4">finding available rooms...</p>
+
+        {isLoading ? (
+          <p className="mt-4">Finding availble rooms....</p>
         ) : availableRooms ? (
-          <RoomSearchResult
+          <RoomSearchResults
             results={availableRooms}
             onClearSearch={handleClearSearch}
           />
         ) : (
-          <P className="mt-4">
-            No rooms available for the selected dates and room type
-          </P>
+          <p className="mt-4">
+            No rooms available for the selected dates and room type.
+          </p>
         )}
         {errorMessage && <p className="text-danger">{errorMessage}</p>}
       </Container>
