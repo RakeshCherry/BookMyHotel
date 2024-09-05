@@ -2,7 +2,7 @@ package com.bookmyhotel.BookMyHotel.Controller;
 
 import com.bookmyhotel.BookMyHotel.Exception.UserAlreadyExistsException;
 import com.bookmyhotel.BookMyHotel.Model.User;
-import com.bookmyhotel.BookMyHotel.Service.UserService;
+import com.bookmyhotel.BookMyHotel.Service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @RequiredArgsConstructor
 public class AuthController {
-    private final UserService userService;
+    private final IUserService userService;
 
     @PostMapping("/register-user")
     public ResponseEntity<?> registerUser(User user){
