@@ -1,1 +1,6 @@
-code change in FindMyBooking.jsx component
+# Creating BookMyHotel FUll STACK web application using
+
+- Rectjs
+- SpringBoot
+- SpringSecurity
+- MySQL
