@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   deleteUser,
-  getBookingsByUserId,
+  // getBookingsByUserId,
   getUser,
 } from "../utils/ApiFunctions";
 import { useNavigate } from "react-router-dom";

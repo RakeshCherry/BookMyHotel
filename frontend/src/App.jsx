@@ -15,14 +15,15 @@ import Checkout from "./components/booking/Checkout";
 import BookingSuccess from "./components/booking/BookingSuccess";
 import Bookings from "./components/booking/Bookings";
 import FindBooking from "./components/booking/FindBooking";
-import Login from "./components/auth/LogIn";
+import Login from "./components/auth/Login";
 import Profile from "./components/auth/Profile";
 import Registration from "./components/auth/Registration";
 import Logout from "./components/auth/Logout";
+import AuthProvider from "./components/auth/AuthProvider";
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <main>
         <Router>
           <NavBar />
@@ -45,7 +46,7 @@ function App() {
         </Router>
         <Footer />
       </main>
-    </>
+    </AuthProvider>
   );
 }
 
